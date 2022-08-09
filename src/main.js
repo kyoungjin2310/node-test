@@ -1,12 +1,26 @@
-// @ts-check
-const http = require("http");
+/*eslint-disable*/
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.end("Hello!");
-});
+const { count } = require("console");
 
-const PORT = 4000;
-server.listen(PORT, () => {
-  console.log(`The server is listening at port: ${PORT}.`);
-});
+var numCounters = 0;
+
+function getCounter() {
+  numCounters += 1;
+
+  var result = { count: count, total: 0 };
+
+  function count() {
+    result.total += 1;
+  }
+
+  return result;
+}
+
+var counterA = getCounter();
+counterA.count();
+counterA.count();
+
+var counterB = getCounter();
+counterB.count();
+
+console.log(counterA.total, counterB.total, numCounters);
