@@ -69,6 +69,7 @@ function solveBModern() {
   return (
     people
       .map(({ pet: petOrPets, city }) => {
+        //자료구조 바꾸기
         const pets =
           (typeof petOrPets === "string" ? [petOrPets] : petOrPets) || [];
         return {
