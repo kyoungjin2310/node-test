@@ -1,31 +1,20 @@
 /* @ts-check */
+const fs = require("fs");
 
-/* eslint-disable no-new */
-/* eslint-disable no-console */
-function returnPromiseForTimeout() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(Math.random());
-    }, 1000);
+/**
+ * @param {string} fileName
+ */
+function readFileInPromise(fileName) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(fileName, "utf-8", (error, value) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(value);
+    });
   });
 }
 
-returnPromiseForTimeout()
-  .then((value) => {
-    console.log(value);
-    return returnPromiseForTimeout();
-  })
-  .then((value) => {
-    console.log(value);
-    return returnPromiseForTimeout();
-  })
-  .then((value) => {
-    console.log(value);
-    return returnPromiseForTimeout();
-  })
-  .then((value) => {
-    console.log(value);
-    return returnPromiseForTimeout();
-  });
-
-returnPromiseForTimeout();
+/* node promise api 제공 */
+fs.promises.readFile(".gitignore", "utf-8").then((value) => console.log(value));
+readFileInPromise(".gitignore", "utf-8").then((value) => console.log(value));
